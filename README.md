@@ -1,8 +1,10 @@
-AngularJS-Toaster
+angularjs-toaster-fontawesome
 =================
 
 **AngularJS Toaster** is an AngularJS port of the **toastr** non-blocking notification jQuery library. It requires AngularJS v1.2.6 or higher and angular-animate for the CSS3 transformations. 
 (I would suggest to use /1.2.8/angular-animate.js, there is a weird blinking in newer versions.)
+
+It also requires version 4 of the Font Awesome icon library.
 
 ### Current Version 0.4.10
 
@@ -17,7 +19,7 @@ AngularJS-Toaster
 
 Optionally: to install with bower, use:
 ```
-bower install --save angularjs-toaster
+bower install --save angularjs-toaster-fontawesome
 ```
 
 * Link scripts:
