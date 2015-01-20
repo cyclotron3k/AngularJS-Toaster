@@ -12,6 +12,7 @@
   ],
   "dependencies": {
     "angular": ">1.2.6",
-    "angular-animate": ">1.2.8"
+    "angular-animate": ">1.2.8",
+    "components-font-awesome": ">=4.0"
   }
 }

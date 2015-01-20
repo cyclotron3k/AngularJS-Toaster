@@ -33,9 +33,16 @@ angular.module('toaster', ['ngAnimate'])
         success: 'toast-success',
         warning: 'toast-warning'
     },
+    'fa-classes': {
+        error: 'fa-times', // 'fa-ban',
+        info: 'fa-info-circle',
+        wait: 'fa-spinner fa-spin', // 'fa-clock-o',
+        success: 'fa-check', // fa-thumbs-o-up',
+        warning: 'fa-warning'
+    },
     'body-output-type': '',// Options: '', 'trustedHtml', 'template', 'templateWithData'
     'body-template': 'toasterBodyTmpl.html',
-    'icon-class': 'toast-info',
+    'type': 'info',
     'position-class': 'toast-top-right',
     'title-class': 'toast-title',
     'message-class': 'toast-message',
@@ -147,9 +154,12 @@ function ($parse, $rootScope, $interval, $sce, toasterConfig, toaster, toasterRe
             };
 
             function addToast(toast) {
-                toast.type = mergedConfig['icon-classes'][toast.type];
+                var type = toast.type;
+                toast.faClass = mergedConfig['fa-classes'][type];
+                toast.type = mergedConfig['icon-classes'][type];
+
                 if (!toast.type)
-                    toast.type = mergedConfig['icon-class'];
+                    console.warn("Invalid toast type", type);
 
                 id++;
                 angular.extend(toast, { id: id });
@@ -264,15 +274,16 @@ function ($parse, $rootScope, $interval, $sce, toasterConfig, toaster, toasterRe
             };
         }],
         template:
-        '<div  id="toast-container" ng-class="[config.position, config.animation]">' +
-            '<div ng-repeat="toaster in toasters" class="toast" ng-class="toaster.type" ng-click="click(toaster)" ng-mouseover="stopTimer(toaster)"  ng-mouseout="restartTimer(toaster)">' +
+        '<div id="toast-container" ng-class="[config.position, config.animation]">' +
+            '<div ng-repeat="toaster in toasters" class="toast" ng-class="toaster.type" ng-click="click(toaster)" ng-mouseover="stopTimer(toaster)" ng-mouseout="restartTimer(toaster)">' +
               '<button class="toast-close-button" ng-show="config.closeButton" ng-click="click(toaster, true)">&times;</button>' +
+              '<i class="fa fa-2x" ng-class="toaster.faClass"></i>' +
               '<div ng-class="config.title">{{toaster.title}}</div>' +
               '<div ng-class="config.message" ng-switch on="toaster.bodyOutputType">' +
                 '<div ng-switch-when="trustedHtml" ng-bind-html="toaster.html"></div>' +
                 '<div ng-switch-when="template"><div ng-include="toaster.bodyTemplate"></div></div>' +
                 '<div ng-switch-when="templateWithData"><div ng-include="toaster.bodyTemplate"></div></div>' +
-                '<div ng-switch-default >{{toaster.body}}</div>' +
+                '<div ng-switch-default>{{toaster.body}}</div>' +
               '</div>' +
             '</div>' +
         '</div>'
