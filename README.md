@@ -1,14 +1,14 @@
 angularjs-toaster-fontawesome
 =================
 
-**AngularJS Toaster** is an AngularJS port of the **toastr** non-blocking notification jQuery library. It requires AngularJS v1.2.6 or higher and angular-animate for the CSS3 transformations. 
+**angularjs-toaster-fontawesome** is an AngularJS port of the **toastr** non-blocking notification jQuery library. It requires AngularJS v1.2.6 or higher, angular-animate for the CSS3 transformations and Font Awesome for the icons 
 (I would suggest to use /1.2.8/angular-animate.js, there is a weird blinking in newer versions.)
 
-**AngularJS Toaster FontAwesome** is based on the above, but the hard-coded images used in the pop-ups have been replaced with **Font Awesome** icons
+**angularjs-toaster-fontawesome** is basically **AngularJS Toaster**, but the hard-coded raster images have been replaced with equivalent Font Awesome icons. Apart from that, I made a few CSS tweaks to fix up some minor errors.
 
-### Current Version 0.4.10
+### Current Version 0.4.11
 
-## Demo
+## Demo (for AngularJS Toaster)
 - Simple demo is at http://plnkr.co/edit/HKTC1a
 - Older versions are http://plnkr.co/edit/1poa9A or http://plnkr.co/edit/4qpHwp or http://plnkr.co/edit/lzYaZt (with version 0.4.5)
 - Older version with Angular 1.2.0 is placed at http://plnkr.co/edit/mejR4h
@@ -22,15 +22,6 @@ Optionally: to install with bower, use:
 bower install --save angularjs-toaster-fontawesome
 ```
 
-* Link scripts:
-
-```html
-<link href="https://cdnjs.cloudflare.com/ajax/libs/angularjs-toaster/0.4.9/toaster.min.css" rel="stylesheet" />
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular.min.js" ></script>
-<script src="https://code.angularjs.org/1.2.0/angular-animate.min.js" ></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/angularjs-toaster/0.4.9/toaster.min.js"></script>
-```
-
 * Add toaster container directive: 
 
 ```html
@@ -40,34 +31,44 @@ bower install --save angularjs-toaster-fontawesome
 * Prepare the call of toaster method:
 
 ```js
-	// Display an info toast with no title
-	angular.module('main', ['toaster'])
-	.controller('myController', function($scope, toaster) {
-	    $scope.pop = function(){
-	        toaster.pop('success', "title", "text");
-	    };
-	});
+    angular.module('main', ['toaster'])
+    .controller('myController', function($scope, toaster) {
+        $scope.pop = function() {
+            toaster.pop('success', "title", "text");
+        };
+
+        $scope.someMoreExamples = function() {
+            toaster.pop('success', "Title",   "Some descriptive text"      );
+            toaster.pop('warning', "Title",   "Some descriptive text", 9000); // Disappear after 9 seconds
+            toaster.pop('error',   "Title",   undefined,               9000); // Disappear after 9 seconds
+            toaster.pop('wait',    undefined, "Description with no title"  );
+            toaster.pop('info',    "Title"                                 );
+        }
+    });
 ```
 
 * Call controller method on button click:
 
 ```html
 <div ng-controller="myController">
-    <button ng-click="pop()">Show a Toaster</button>
+    <button ng-click="pop()">Pop some toast!</button>
 </div>
 ```
 
-### Other Options
+### Configuration Options
 
 ```html
 // Change display position
 <toaster-container toaster-options="{'position-class': 'toast-top-full-width'}"></toaster-container>
 ```
 
+Other acceptable position-class values include: toast-top-full-width, toast-bottom-full-width, toast-top-left, toast-top-center, toast-top-right, toast-bottom-right, toast-bottom-center, toast-bottom-left, toast-center
+
+
 ### Animations
 Unlike toastr, this library relies on ngAnimate and CSS3 transformations for animations.
 		
-## Author
+## Author of AngularJS Toaster
 **Jiri Kavulak**
 
 ## Credits
@@ -76,6 +77,7 @@ Inspired by http://codeseven.github.io/toastr/demo.html.
 ## Copyright
 Copyright © 2013 [Jiri Kavulak](https://twitter.com/jirikavi).
 
-## License 
+## License
 AngularJS-Toaster is under MIT license - http://www.opensource.org/licenses/mit-license.php
+angularjs-toaster-fontawesome is under MIT license - http://www.opensource.org/licenses/mit-license.php
 
